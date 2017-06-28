@@ -2,12 +2,11 @@
 
 namespace Madcoda\Youtube;
 
-use Madcoda\Youtube;
+use Madcoda\Youtube\Youtube;
 use Illuminate\Support\ServiceProvider;
 
 class YoutubeServiceProviderLaravel5 extends ServiceProvider
 {
-
     protected $defer = true;
 
     /**
@@ -18,7 +17,7 @@ class YoutubeServiceProviderLaravel5 extends ServiceProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__.'/../../config/youtube.php' => config_path('youtube.php'),
+            __DIR__.'/config/youtube.php' => config_path('youtube.php'),
         ]);
     }
 
@@ -29,7 +28,7 @@ class YoutubeServiceProviderLaravel5 extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind('Madcoda\Youtube', function ($app) {
+        $this->app->bind('Madcoda\Youtube\Youtube', function ($app) {
             return new Youtube($app['config']->get('youtube'));
         });
     }
@@ -42,8 +41,6 @@ class YoutubeServiceProviderLaravel5 extends ServiceProvider
      */
     public function provides()
     {
-        return ['Madcoda\Youtube'];
+        return ['Madcoda\Youtube\Youtube'];
     }
-
-
 }
